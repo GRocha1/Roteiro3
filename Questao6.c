@@ -1,85 +1,77 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int num_votos, votos_jogador[24], num_jogador;
-float percentual[24];
-
-void VotosComputados(int votos_jogador[24])
+float Percentual(int votos, int total)
 {
-    num_jogador = 1;
-
-    while(num_jogador != 0)
-    {
-        printf("Numero do jogador a ser votado(0 encerra o programa): ");
-        scanf("%d",&num_jogador);
-        if(num_jogador < 0 || num_jogador > 23)
-        {
-            puts("Numero invalido!!!\nDigite Novamente: \n");
-            scanf("%d",&num_jogador);
-
-        }else
-        {
-            num_votos++;
-            votos_jogador[num_jogador]++;
-        }
-
-        num_votos--;
-    }
-
-}
-
-void totalVotos(int num_votos)
-{
-    printf("Total de votos: \n",num_votos);
-
-}
-
-void VotosPorJogador(int votos_jogador[24])
-{
-    int i;
-
-    printf("Votos de cada jogador\n");
-
-    for(i=1; i<24; i++)
-    {
-        if(votos_jogador[i] == 0)
-            ;
-        else
-        {
-            printf("Jogador num %d, recebeu: %d votos\n",i,votos_jogador[i]);
-        }
-
-    }
-
-}
-
-void Percentual_jogador(int num_votos, int votos_jogador[24])
-{
-    int i;
-
-    printf("Percentual de votos de cada jogador");
-
-    for(i=1; i<24; i++)
-    {
-        percentual[i] = (votos_jogador[i]/num_votos)*100;
-        if(percentual[i] == 0)
-            ;
-        else
-        {
-            printf("Jogador num %d, recebeu %f%% dos votos",i,percentual[i]);
-        }
-    }
-}
-
-void MelhorJogador(int num_jogador, int votos_jogador[24], float percentual[24])
-{
-
-
-
-;
-
+    return (((float)votos/(float)total)*100);
 }
 int main()
 {
+    int jogador[23], num_jogador, votos, i,aux, melhor_jogador;
+
+    votos = 0;
+
+    printf("\t####### ENQUETE #######\n"
+           "\n    Qual o melhor jogador da partida?    \n"
+           "(Observe: Digite 0 para encerrar o programa)\n\n");
+
+    for(i=0; i<23; i++)
+    {
+        jogador[i] = 0; /* Iniciar todos os jogadores com votos igual a 0 */
+    }
+
+    while(1)
+    {
+        printf("Numero do jogador: ");
+        scanf("%d",&num_jogador);
+
+        if(num_jogador == 0)
+            break;
+        else if(num_jogador > 23)
+            puts("Numero invalido! Digite de 1 a 23.");
+            else
+            {
+                jogador[num_jogador - 1]++;
+                votos++;
+            }
+    }
+
+    printf("\nRESULTADO DA VOTACAO: \n"
+           "\nForam computados %d votos\n",votos);
+
+    for(i=0; i<23; i++)
+    {
+        if(jogador[i] != 0)
+            printf("Jogador numero [%d] recebeu: \t%d voto(s) \t%%%2.1f dos votos\n",i+1,jogador[i],Percentual(jogador[i],votos));
+    }
+
+    melhor_jogador = jogador[0];
+
+    for(i=1; i<=23; i++)
+    {
+        if(melhor_jogador <= jogador[i])
+        {
+            melhor_jogador = jogador[i];
+        }
+    }
+
+    printf("\nO melhor jogador escolhido foi o %d com %d votos",melhor_jogador);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return 0;
+
+
+
 }
