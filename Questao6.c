@@ -7,7 +7,7 @@ float Percentual(int votos, int total)
 }
 int main()
 {
-    int jogador[23], num_jogador, votos, i,aux, melhor_jogador;
+    int jogador[23], num_jogador, votos, i,aux, melhor_jogador, maior, maior_percent;
 
     votos = 0;
 
@@ -45,29 +45,28 @@ int main()
             printf("Jogador numero [%d] recebeu: \t%d voto(s) \t%%%2.1f dos votos\n",i+1,jogador[i],Percentual(jogador[i],votos));
     }
 
+    for(i=0; i<23; i++)
+    {
+        if(jogador[i] != 0)
+        {
+            maior = jogador[i];
+            maior_percent = Percentual(jogador[i],votos);
+        }
+    }
+
     melhor_jogador = jogador[0];
 
-    for(i=1; i<=23; i++)
+    for(i=1; i<23; i++)
     {
         if(melhor_jogador <= jogador[i])
         {
             melhor_jogador = jogador[i];
+            aux = (i+1);
         }
     }
 
-    printf("\nO melhor jogador escolhido foi o %d com %d votos",melhor_jogador);
-
-
-
-
-
-
-
-
-
-
-
-
+    printf("\nO melhor jogador escolhido foi o %d com %d votos"
+           " que corresponde a %2.1f%% do total de votos.",aux,melhor_jogador,maior_percent);
 
 
     return 0;
